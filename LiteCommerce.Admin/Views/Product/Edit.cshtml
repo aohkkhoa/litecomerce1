@@ -1,0 +1,43 @@
+﻿@model LiteCommerce.DomainModels.ProductEx
+@{
+    ViewBag.Title = "Cập nhật thông tin mặt hàng";
+}
+
+<fieldset>
+    <legend>Thông tin mặt hàng</legend>
+    <form>
+        @Html.TextBoxFor(m=> m.ProductName)
+        @Html.DropDownListFor(m=> m.CategoryID, SelectListHelper.ParentCategoties())
+    </form>
+</fieldset>
+<fieldset>
+    <legend>Danh sách các thuộc tính</legend>
+    <form action="~/Product/DeleteAttributes/@Model.ProductID" method="post">
+        @foreach(var item in Model.Attributes)
+        {
+            <input type="checkbox" name="attributeIds" value="@item.AttributeID"/>
+            <span>@item.AttributeID: </span>
+            <span>@item.AttributeName</span>
+            <span>: @item.AttributeValue</span>
+            <br />
+        }
+        <button type="submit"> Xóa thuộc tính</button>
+    </form>
+</fieldset>
+<fieldset>
+    <legend>Danh sách các ảnh</legend>
+    <form action="~/Product/DeleteGallerys/@Model.ProductID" method="post">
+        @foreach (var item in Model.Galleries)
+        {
+            <input type="checkbox" name="galleryIds" value="@item.GalleryID" />
+            <span>@item.GalleryID: </span>
+            <span>@item.Photo</span>
+            <span>: @item.Description</span>
+            <span>: @item.DisplayOrder</span>
+            <span>: @item.IsHidden</span>
+            <br />
+        }
+        
+        <button type="submit"> Xóa danh sách ảnh</button>
+    </form>
+</fieldset>
